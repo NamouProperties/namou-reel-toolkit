@@ -1,0 +1,446 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+        background: #000;
+        font-family: "DM Sans", sans-serif;
+        color: #FDFDFD;
+      }
+
+      :root {
+        --bg: #FDFDFD;
+        --ink: #121212;
+        --ink-muted: #555555;
+        --bg-deep: #003D2E;
+        --accent: #00B073;
+        --mint: #3FE6A8;
+      }
+
+      /* Base footage fills the frame */
+      #nadim-video {
+        position: absolute;
+        inset: 0;
+        width: 1080px;
+        height: 1920px;
+        object-fit: cover;
+        z-index: 0;
+      }
+
+      /* ---------- Scene 1: Wynn + 28 hotels ---------- */
+
+      #wynn-card {
+        position: absolute;
+        top: 60px;
+        right: 40px;
+        width: 320px;
+        height: 426px;
+        border-radius: 20px;
+        overflow: hidden;
+        z-index: 2;
+        box-shadow: 0 18px 44px rgba(0, 0, 0, 0.45);
+        background: #000;
+      }
+      #wynn-card img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+      #wynn-card::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 55%;
+        background: linear-gradient(
+          to top,
+          rgba(0, 61, 46, 0.92) 0%,
+          rgba(0, 61, 46, 0.65) 45%,
+          rgba(0, 61, 46, 0) 100%
+        );
+        pointer-events: none;
+      }
+      #wynn-card .wynn-tag {
+        position: absolute;
+        left: 18px;
+        bottom: 18px;
+        right: 18px;
+        z-index: 2;
+        color: #FDFDFD;
+        font-family: "DM Sans", sans-serif;
+        font-weight: 500;
+        font-size: 17px;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+      #wynn-card .wynn-tag em {
+        display: block;
+        font-family: "Instrument Serif", serif;
+        font-style: italic;
+        font-size: 36px;
+        text-transform: none;
+        letter-spacing: 0;
+        margin-top: 4px;
+        line-height: 1.02;
+        color: var(--mint);
+      }
+
+      #hotels-bar {
+        position: absolute;
+        left: 60px;
+        right: 60px;
+        bottom: 200px;
+        z-index: 3;
+        background: var(--bg-deep);
+        color: var(--bg);
+        border-radius: 20px;
+        padding: 36px 44px;
+        display: flex;
+        align-items: center;
+        gap: 32px;
+        box-shadow: 0 18px 50px rgba(0, 0, 0, 0.35);
+      }
+      #hotels-bar .num {
+        font-family: "DM Sans", sans-serif;
+        font-weight: 700;
+        font-size: 132px;
+        line-height: 1;
+        color: var(--mint);
+        font-variant-numeric: tabular-nums;
+      }
+      #hotels-bar .label {
+        font-family: "DM Sans", sans-serif;
+        font-weight: 500;
+        font-size: 30px;
+        line-height: 1.15;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+      #hotels-bar .label em {
+        display: block;
+        font-family: "Instrument Serif", serif;
+        font-style: italic;
+        font-size: 38px;
+        text-transform: none;
+        letter-spacing: 0;
+        margin-top: 6px;
+        color: var(--mint);
+      }
+
+      /* ---------- Scene 2: +30% land prices ---------- */
+
+      #price-stat {
+        position: absolute;
+        left: 60px;
+        right: 60px;
+        bottom: 200px;
+        z-index: 3;
+        background: var(--bg);
+        color: var(--ink);
+        border-radius: 20px;
+        padding: 44px 48px;
+        box-shadow: 0 18px 50px rgba(0, 0, 0, 0.18);
+      }
+      #price-stat .num {
+        font-family: "DM Sans", sans-serif;
+        font-weight: 700;
+        font-size: 220px;
+        line-height: 0.9;
+        color: var(--accent);
+        font-variant-numeric: tabular-nums;
+        letter-spacing: -0.02em;
+      }
+      #price-stat .num .sign {
+        font-size: 140px;
+        vertical-align: top;
+        line-height: 1;
+      }
+      #price-stat .label {
+        font-family: "DM Sans", sans-serif;
+        font-weight: 500;
+        font-size: 32px;
+        line-height: 1.2;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        color: var(--ink);
+        margin-top: 12px;
+      }
+      #price-stat .label .sub {
+        display: block;
+        font-weight: 400;
+        font-size: 24px;
+        color: var(--ink-muted);
+        letter-spacing: 0.02em;
+        margin-top: 6px;
+      }
+
+      /* ---------- Scene 3: CTA ---------- */
+
+      #cta-stack {
+        position: absolute;
+        left: 60px;
+        right: 60px;
+        bottom: 240px;
+        z-index: 3;
+        text-align: center;
+      }
+      #cta-stack .pull {
+        font-family: "Instrument Serif", serif;
+        font-style: italic;
+        font-size: 96px;
+        line-height: 1.05;
+        color: var(--bg);
+        text-shadow: 0 4px 24px rgba(0, 0, 0, 0.55);
+      }
+      #cta-stack .pull span {
+        color: var(--mint);
+      }
+      #cta-stack .pill {
+        display: inline-block;
+        margin-top: 32px;
+        padding: 22px 48px;
+        background: var(--accent);
+        color: #FDFDFD;
+        font-family: "DM Sans", sans-serif;
+        font-weight: 600;
+        font-size: 40px;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        border-radius: 999px;
+        box-shadow: 0 12px 32px rgba(0, 176, 115, 0.45);
+      }
+
+      /* Bottom gradient under CTA — deep forest tint, solid through the pull-quote zone */
+      #cta-shade {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 1100px;
+        z-index: 1;
+        background: linear-gradient(
+          to top,
+          rgba(0, 61, 46, 0.98) 0%,
+          rgba(0, 61, 46, 0.96) 55%,
+          rgba(0, 61, 46, 0.82) 72%,
+          rgba(0, 61, 46, 0.35) 88%,
+          rgba(0, 61, 46, 0) 100%
+        );
+        pointer-events: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="main"
+      data-start="0"
+      data-duration="30"
+      data-width="1080"
+      data-height="1920"
+    >
+      <!-- Base layer: Nadim speaks -->
+      <video
+        id="nadim-video"
+        data-start="0"
+        data-duration="30"
+        data-track-index="0"
+        src="nadim.mp4"
+        muted
+        playsinline
+      ></video>
+
+      <!-- Audio track pulled from the same MP4 -->
+      <audio
+        id="nadim-audio"
+        data-start="0"
+        data-duration="30"
+        data-track-index="1"
+        src="nadim.mp4"
+        data-volume="1"
+      ></audio>
+
+      <!-- Scene 1: Wynn + 28 hotels — anchors on "twenty-eight hotels ... Wynn Al Marjan Island resort" -->
+      <div
+        id="wynn-card"
+        class="clip"
+        data-start="6.5"
+        data-duration="5.0"
+        data-track-index="2"
+      >
+        <img src="wynn-casino.png" alt="Wynn Al Marjan Island" crossorigin="anonymous" />
+        <div class="wynn-tag">
+          Anchor resort
+          <em>Wynn Al Marjan Island</em>
+        </div>
+      </div>
+
+      <div
+        id="hotels-bar"
+        class="clip"
+        data-start="5.0"
+        data-duration="7.0"
+        data-track-index="3"
+      >
+        <div class="num">28</div>
+        <div class="label">
+          Hotels opening
+          <em>by 2030</em>
+        </div>
+      </div>
+
+      <!-- Scene 2: +30% land prices — anchors on "risen over thirty percent in the last three years" -->
+      <div
+        id="price-stat"
+        class="clip"
+        data-start="14.6"
+        data-duration="6.4"
+        data-track-index="4"
+      >
+        <div class="num">
+          <span class="sign">+</span><span id="price-num">0</span>%
+        </div>
+        <div class="label">
+          Land prices
+          <span class="sub">Ras Al Khaimah · Last 3 years</span>
+        </div>
+      </div>
+
+      <!-- Scene 3: Closing CTA — anchors on the last 5 seconds (25.0-30.0) -->
+      <div
+        id="cta-shade"
+        class="clip"
+        data-start="25.0"
+        data-duration="5.0"
+        data-track-index="5"
+      ></div>
+
+      <div
+        id="cta-stack"
+        class="clip"
+        data-start="25.2"
+        data-duration="4.8"
+        data-track-index="6"
+      >
+        <div class="pull">
+          <span>Walk</span> the plots, live.
+        </div>
+        <div class="pill">Book a video walkthrough</div>
+      </div>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+
+      /* ---- Scene 1: Wynn card slides DOWN in (6.5s), slides OUT to right (10.9s) ---- */
+      tl.from(
+        "#wynn-card",
+        { y: -540, opacity: 0, duration: 0.7, ease: "power3.out" },
+        6.6,
+      );
+      tl.from(
+        "#wynn-card .wynn-tag",
+        { y: 24, opacity: 0, duration: 0.5, ease: "power2.out" },
+        6.95,
+      );
+      tl.to(
+        "#wynn-card",
+        { x: 500, opacity: 0, duration: 0.5, ease: "power2.in" },
+        10.9,
+      );
+
+      /* ---- Scene 1: Hotels lower-third rises in (5.0s), slides OUT to left (11.4s) ---- */
+      tl.from(
+        "#hotels-bar",
+        { y: 80, opacity: 0, duration: 0.65, ease: "power3.out" },
+        5.1,
+      );
+      tl.from(
+        "#hotels-bar .num",
+        {
+          textContent: 0,
+          duration: 1.1,
+          ease: "expo.out",
+          snap: { textContent: 1 },
+        },
+        5.5,
+      );
+      tl.from(
+        "#hotels-bar .label",
+        { x: -24, opacity: 0, duration: 0.55, ease: "power2.out" },
+        5.4,
+      );
+      tl.to(
+        "#hotels-bar",
+        { x: -1100, opacity: 0, duration: 0.5, ease: "power2.in" },
+        11.4,
+      );
+
+      /* ---- Scene 2: +30% rises in (14.6s), slides OUT to right (20.4s) ---- */
+      tl.from(
+        "#price-stat",
+        { y: 100, opacity: 0, duration: 0.7, ease: "power3.out" },
+        14.7,
+      );
+      tl.fromTo(
+        "#price-num",
+        { textContent: 0 },
+        {
+          textContent: 30,
+          duration: 1.3,
+          ease: "expo.out",
+          snap: { textContent: 1 },
+        },
+        15.1,
+      );
+      tl.from(
+        "#price-stat .label",
+        { y: 20, opacity: 0, duration: 0.5, ease: "power2.out" },
+        15.0,
+      );
+      tl.to(
+        "#price-stat",
+        { x: 1100, opacity: 0, duration: 0.5, ease: "power2.in" },
+        20.4,
+      );
+
+      /* ---- Scene 3: CTA closer (25.0s, last 5 seconds) ---- */
+      tl.from(
+        "#cta-shade",
+        { opacity: 0, duration: 0.6, ease: "power2.out" },
+        25.1,
+      );
+      tl.from(
+        "#cta-stack .pull",
+        { y: 40, opacity: 0, duration: 0.7, ease: "power3.out" },
+        25.3,
+      );
+      tl.from(
+        "#cta-stack .pill",
+        { y: 30, opacity: 0, scale: 0.92, duration: 0.55, ease: "back.out(1.6)" },
+        25.9,
+      );
+
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>
